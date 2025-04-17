@@ -21,24 +21,25 @@ class UserController extends Controller
             'title' => 'Daftar user yang terdaftar dalam sistem'
         ];
 
-        $activeMenu = 'user'; // set menu yang sedang aktif
+        $level = LevelModel::all(); // Ambil data level untuk filter level
 
-        $level = LevelModel::all(); 
+        $activeMenu = 'user'; // Tambahkan ini untuk menghindari error
 
         return view('user.index', [
-            'breadcrumb' => $breadcrumb,
-            'page' => $page,
-            'level' => $level,
+            'breadcrumb' => $breadcrumb, 
+            'page' => $page, 
+            'level' => $level, 
             'activeMenu' => $activeMenu
         ]);
     }
+
     // Ambil data user dalam bentuk JSON untuk DataTables
     public function list(Request $request)
     {
         $users = UserModel::select('user_id', 'username', 'nama', 'level_id')
                     ->with('level');
         
-        // Filter data user berdasarkan level_id
+        // filter data user berdasarkan level_id
         if ($request->level_id) {
             $users->where('level_id', $request->level_id);
         }
