@@ -158,16 +158,18 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/{id}', [SupplierController::class, 'show']);
             Route::get('/{id}/edit', [SupplierController::class, 'edit']);
             Route::put('/{id}', [SupplierController::class, 'update']);
-             // Edit menggunakan AJAX
-             Route::get('/{id}/edit_ajax', [SupplierController::class, 'edit_ajax']); // menampilkan halaman form edit Supplier ajax
-             Route::put('/{id}/update_ajax', [SupplierController::class, 'update_ajax']); // menyimpan perubahan data Supplier ajax
-             // Delete menggunakan AJAX
-             Route::get('/{id}/delete_ajax', [SupplierController::class, 'confirm_ajax']); //menampilkan form confirm delete Supplier ajax
-             Route::delete('/{id}/delete_ajax', [SupplierController::class, 'delete_ajax']); // menghapus data Supplier ajax
+            // Edit menggunakan AJAX
+            Route::get('/{id}/edit_ajax', [SupplierController::class, 'edit_ajax']); // menampilkan halaman form edit Supplier ajax
+            Route::put('/{id}/update_ajax', [SupplierController::class, 'update_ajax']); // menyimpan perubahan data Supplier ajax
+            // Delete menggunakan AJAX
+            Route::get('/{id}/delete_ajax', [SupplierController::class, 'confirm_ajax']); //menampilkan form confirm delete Supplier ajax
+            Route::delete('/{id}/delete_ajax', [SupplierController::class, 'delete_ajax']); // menghapus data Supplier ajax
             Route::delete('/{id}', [SupplierController::class, 'destroy']);
             // Import Supplier with Excel
             Route::get('import', [SupplierController::class, 'import']); // ajax form upload excel
             Route::post('import_ajax', [SupplierController::class, 'import_ajax']); // ajax import excel
+            // Export User with Excel
+            Route::get('export_excel', [SupplierController::class, 'export_excel']); //export excel
         });
     });
 });
