@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class KategoriController extends Controller
 {
@@ -370,5 +372,18 @@ public function export_excel()
     return response()->download($filePath)->deleteFileAfterSend(true);
 }
 
+public function export_pdf()
+{
+    $kategori = KategoriModel::select('kategori_id', 'kategori_kode', 'kategori_nama')
+        ->orderBy('kategori_id')
+        ->get();
+
+    // Load view untuk PDF
+    $pdf = Pdf::loadView('kategori.export_pdf', ['kategori' => $kategori]);
+    $pdf->setPaper('a4', 'portrait'); // Set ukuran kertas dan orientasi
+    $pdf->setOption("isRemoteEnabled", true); // Jika ada gambar dari URL
+
+    return $pdf->stream('Data_Kategori_' . date('Y-m-d_H-i-s') . '.pdf');
+}
 
 }
