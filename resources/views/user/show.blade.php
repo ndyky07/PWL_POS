@@ -32,7 +32,23 @@
                 </tr>
                 <tr>
                     <th>Password</th>
-                    <td>********</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>Foto Profil</th>
+                    <td>
+                        @if($user->profile_picture)
+                            <img src="{{ asset('storage/profile_pictures/'.$user->profile_picture) }}" 
+                                 class="img-thumbnail rounded-circle" 
+                                 width="150" 
+                                 height="150">
+                        @else
+                            <img src="{{ asset('images/default-profile.png') }}" 
+                                 class="img-thumbnail rounded-circle" 
+                                 width="150" 
+                                 height="150">
+                        @endif
+                    </td>
                 </tr>
             </table>
         @endempty
@@ -42,6 +58,14 @@
 @endsection
 
 @push('css')
+<style>
+    .table th {
+        width: 30%;
+    }
+    .img-thumbnail {
+        object-fit: cover;
+    }
+</style>
 @endpush
 
 @push('js')
